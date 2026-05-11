@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="../BuildIntegrityDashboard/BuildIntegrityDashboard.csproj" />
+  <Project Path="BuildIntegrityAnalyzer.csproj" />
+</Solution>
