@@ -30,7 +30,7 @@ databaseService.SaveIssues(issues);
 //{
   //  databaseService.SaveIssues(issue);
 //}
-
+int x=
 Console.WriteLine();
 Console.WriteLine($"Total Issues Found: {issues.Count}");
 
