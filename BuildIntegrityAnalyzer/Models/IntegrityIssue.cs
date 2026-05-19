@@ -9,12 +9,14 @@ namespace BuildIntegrityAnalyzer.Models
         public string IssueType { get; set; }
         public string FileName { get; set; }
         public string Message { get; set; }
+        public string Severity { get; set; }
 
-        public IntegrityIssue(string issueType, string fileName, string message)
+        public IntegrityIssue(string issueType, string fileName, string message,string severity )
         {
             IssueType = issueType;
             FileName = fileName;
             Message = message;
+            Severity = severity;
         }
     }
 }
