@@ -36,6 +36,16 @@ Console.WriteLine($"Total Issues Found: {issues.Count}");
 if (issues.Count > 0)
 {
     Console.WriteLine("Integrity issues detected.");
+     Console.WriteLine($"\nTotal Issues Found: {issues.Count}");
+
+ foreach (var issue in issues)
+ {
+     Console.WriteLine("-----------------------------------");
+     Console.WriteLine($"Severity   : {issue.Severity}");
+     Console.WriteLine($"Issue Type : {issue.IssueType}");
+     Console.WriteLine($"File Name  : {issue.FileName}");
+     Console.WriteLine($"Description: {issue.Message}");
+ }
     Environment.Exit(1);
 }
 else
