@@ -95,7 +95,7 @@ namespace BuildIntegrityAnalyzer.AnalyzerCore
                     ValidateRequiredFiles(projectRoot, issues);
                     ValidatePackageReferences(projectPath, issues);
 
-                    ValidateDllFiles(projectRoot, issues);
+                   
 
                     ValidateDuplicatePackages(projectPath, issues);
                 }
