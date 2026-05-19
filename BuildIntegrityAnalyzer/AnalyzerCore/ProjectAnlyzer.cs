@@ -1,3 +1,4 @@
+
 ﻿using BuildIntegrityAnalyzer.Models;
 using BuildIntegrityAnalyzer.Scanner;
 using BuildIntegrityAnalyzer.Services;
@@ -95,20 +96,20 @@ namespace BuildIntegrityAnalyzer.AnalyzerCore
                     ValidateRequiredFiles(projectRoot, issues);
                     ValidatePackageReferences(projectPath, issues);
 
-                   
+                    //ValidateDllFiles(projectRoot, issues);
 
                     ValidateDuplicatePackages(projectPath, issues);
                 }
 
             }
-            catch(Exception ex)
-            { 
+            catch (Exception ex)
+            {
             }
             return issues;
         }
-        
 
-        private void ValidateRequiredFiles(string projectRoot,List<IntegrityIssue> issues)
+
+        private void ValidateRequiredFiles(string projectRoot, List<IntegrityIssue> issues)
         {
             try
             {
@@ -134,10 +135,7 @@ namespace BuildIntegrityAnalyzer.AnalyzerCore
                 // DLL FILES
                 // --------------------------------
 
-                string[] dllFiles =
-                {
-        "System.Data.SQLite.dll"
-    };
+              
 
                 // Validate JSON files
                 ScanFiles(projectRoot, jsonFiles, "Missing JSON File", "Required JSON configuration file is missing", "Medium", issues);
@@ -146,10 +144,10 @@ namespace BuildIntegrityAnalyzer.AnalyzerCore
                 ScanFiles(projectRoot, configFiles, "Missing Config File", "Required configuration file is missing", "High", issues);
 
                 // Validate DLL files
-                ScanFiles(projectRoot, dllFiles, "Missing DLL", "Required DLL dependency is missing", "Critical", issues);
+               // ScanFiles(projectRoot, dllFiles, "Missing DLL", "Required DLL dependency is missing", "Critical", issues);
             }
             catch (Exception ex)
-            { 
+            {
             }
         }
 
@@ -158,7 +156,7 @@ namespace BuildIntegrityAnalyzer.AnalyzerCore
         // COMMON SCANNING METHOD
         // ==================================
 
-        private void ScanFiles(string projectRoot, string[] requiredFiles, string issueType, string message,string severity,List<IntegrityIssue> issues)
+        private void ScanFiles(string projectRoot, string[] requiredFiles, string issueType, string message, string severity, List<IntegrityIssue> issues)
         {
             try
             {
@@ -173,7 +171,7 @@ namespace BuildIntegrityAnalyzer.AnalyzerCore
                 }
             }
             catch (Exception ex)
-            { 
+            {
             }
         }
         private void ValidatePackageReferences(string projectFilePath, List<IntegrityIssue> issues)
@@ -184,11 +182,11 @@ namespace BuildIntegrityAnalyzer.AnalyzerCore
 
             // Get all PackageReference entries
 
-            var packageReferences =projectFile.Descendants("PackageReference");
+            var packageReferences = projectFile.Descendants("PackageReference");
 
             foreach (var package in packageReferences)
             {
-                string packageName =package.Attribute("Include")?.Value;
+                string packageName = package.Attribute("Include")?.Value;
 
                 string version = package.Attribute("Version")?.Value;
 
@@ -196,19 +194,19 @@ namespace BuildIntegrityAnalyzer.AnalyzerCore
 
                 if (string.IsNullOrWhiteSpace(packageName))
                 {
-                    issues.Add(new IntegrityIssue( "Invalid Package Reference", "Unknown Package", "Package reference name is missing", "High" ));
+                    issues.Add(new IntegrityIssue("Invalid Package Reference", "Unknown Package", "Package reference name is missing", "High"));
                 }
 
                 // Check missing version
 
                 if (string.IsNullOrWhiteSpace(version))
                 {
-                    issues.Add(new IntegrityIssue("Missing Package Version",packageName, "NuGet package version is missing","Medium"));
+                    issues.Add(new IntegrityIssue("Missing Package Version", packageName, "NuGet package version is missing", "Medium"));
                 }
             }
         }
 
-        private void ValidateDllFiles( string projectRoot, List<IntegrityIssue> issues)
+        private void ValidateDllFiles(string projectRoot, List<IntegrityIssue> issues)
         {
             // Required DLLs
 
@@ -217,11 +215,11 @@ namespace BuildIntegrityAnalyzer.AnalyzerCore
 
             foreach (var dll in requiredDlls)
             {
-                bool dllFound =Directory.GetFiles(projectRoot, dll,SearchOption.AllDirectories) .Any();
+                bool dllFound = Directory.GetFiles(projectRoot, dll, SearchOption.AllDirectories).Any();
 
                 if (!dllFound)
                 {
-                    issues.Add(new IntegrityIssue( "Missing DLL",dll, "Required DLL dependency is missing","Critical"));
+                    issues.Add(new IntegrityIssue("Missing DLL", dll, "Required DLL dependency is missing", "Critical"));
                 }
             }
         }
@@ -234,15 +232,15 @@ namespace BuildIntegrityAnalyzer.AnalyzerCore
 
         private void ValidateDuplicatePackages(string projectFilePath, List<IntegrityIssue> issues)
         {
-            XDocument projectFile =XDocument.Load(projectFilePath);
+            XDocument projectFile = XDocument.Load(projectFilePath);
 
-            var packageNames = projectFile.Descendants("PackageReference").Select(p =>p.Attribute("Include")?.Value).ToList();
+            var packageNames = projectFile.Descendants("PackageReference").Select(p => p.Attribute("Include")?.Value).ToList();
 
             var duplicates = packageNames.GroupBy(p => p).Where(g => g.Count() > 1);
 
             foreach (var duplicate in duplicates)
             {
-                issues.Add(new IntegrityIssue("Duplicate Package Reference",duplicate.Key, "Package reference added multiple times","Medium" ));
+                issues.Add(new IntegrityIssue("Duplicate Package Reference", duplicate.Key, "Package reference added multiple times", "Medium"));
             }
         }
     }
