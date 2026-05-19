@@ -6,7 +6,7 @@ Console.WriteLine("=== Intelligent Build Integrity Analyzer ===");
 Console.WriteLine();
 
 Console.Write("Enter project (.csproj) path: ");
-string projectPath =@"TestProjects/DummyWebProject/DummyWebProject.csproj";
+string projectPath =@"BuildIntegrityAnalyzer/BuildIntegrityAnalyzer.csproj";
 
 //string? projectPath = Console.ReadLine();
 //string projectPath = @"E:\TestGitProject\TestGitProject\TestGitProject.csproj";
@@ -22,15 +22,14 @@ var analyzer = new ProjectAnalyzer();
 List<IntegrityIssue> issues =
     analyzer.AnalyzeProject(projectPath);
 
-var databaseService =
-    new DatabaseService();
+var databaseService =new DatabaseService();
 databaseService.SaveIssues(issues);
 
 //foreach (var issue in issues)
 //{
   //  databaseService.SaveIssues(issue);
 //}
-int x=
+
 Console.WriteLine();
 Console.WriteLine($"Total Issues Found: {issues.Count}");
 
