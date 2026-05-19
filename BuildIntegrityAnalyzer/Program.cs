@@ -6,7 +6,7 @@ Console.WriteLine("=== Intelligent Build Integrity Analyzer ===");
 Console.WriteLine();
 
 Console.Write("Enter project (.csproj) path: ");
-string projectPath =@"BuildIntegrityAnalyzer/BuildIntegrityAnalyzer.csproj";
+string projectPath =@"TestProjects/DummyWebProject/DummyWebProject.csproj";
 
 //string? projectPath = Console.ReadLine();
 //string projectPath = @"E:\TestGitProject\TestGitProject\TestGitProject.csproj";
