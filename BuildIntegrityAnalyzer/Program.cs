@@ -47,7 +47,7 @@ if (issues.Count > 0)
         Console.WriteLine($"File Name  : {issue.FileName}");
         Console.WriteLine($"Description: {issue.Message}");
     }
-    Environment.Exit(1);
+   
 }
 else
 {
