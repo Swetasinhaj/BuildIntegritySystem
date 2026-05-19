@@ -22,7 +22,8 @@
 
     <Content Include="Pages\MissingPage.razor" />
 
-    <Content Include="appsettings.production.json" />
+    <Content Include="appsettings.Development.json" />
+<Content Include="appsettings.json" />
 
     <Reference Include="System.Data.SQLite">
       <HintPath>libs\System.Data.SQLite.dll</HintPath>
