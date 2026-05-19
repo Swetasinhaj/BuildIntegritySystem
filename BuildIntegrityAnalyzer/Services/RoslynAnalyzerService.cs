@@ -12,30 +12,35 @@ namespace BuildIntegrityAnalyzer.Services
         public List<IntegrityIssue> AnalyzeCode(string filePath)
         {
             List<IntegrityIssue> issues = new List<IntegrityIssue>();
-
-            if (!File.Exists(filePath))
+            try
             {
-                return issues;
-            }
 
-            string code = File.ReadAllText(filePath);
-
-            SyntaxTree tree = CSharpSyntaxTree.ParseText(code);
-
-            var diagnostics = tree.GetDiagnostics();
-
-            foreach (var diagnostic in diagnostics)
-            {
-                if (diagnostic.Severity == DiagnosticSeverity.Error)
+                if (!File.Exists(filePath))
                 {
-                    issues.Add(new IntegrityIssue(
-                        "Syntax Error",
-                        filePath,
-                        diagnostic.ToString()
-                    ));
+                    return issues;
                 }
-            }
+                else
+                {
+                    string code = File.ReadAllText(filePath);
 
+                    SyntaxTree tree = CSharpSyntaxTree.ParseText(code);
+
+                    var diagnostics = tree.GetDiagnostics();
+
+                    foreach (var diagnostic in diagnostics)
+                    {
+                        if (diagnostic.Severity == DiagnosticSeverity.Error)
+                        {
+                            issues.Add(new IntegrityIssue("Syntax Error", filePath, diagnostic.ToString(), ""));
+                        }
+                    }
+                }
+                
+
+
+            }
+            catch (Exception ex)
+            { }
             return issues;
         }
     }
