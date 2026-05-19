@@ -14,5 +14,19 @@
   <ItemGroup>
     <Content Remove="Pages\Dashboard.cshtml" />
   </ItemGroup>
+ <ItemGroup>
+    <Compile Include="Services\MissingService.cs" />
+
+    <Content Include="web.config" />
+
+    <Content Include="Pages\MissingPage.razor" />
+
+    <Content Include="appsettings.production.json" />
+
+    <Reference Include="System.Data.SQLite">
+      <HintPath>libs\System.Data.SQLite.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 
 </Project>
