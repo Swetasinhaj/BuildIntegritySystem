@@ -25,9 +25,7 @@
     <Content Include="appsettings.Development.json" />
 <Content Include="appsettings.json" />
 
-    <Reference Include="System.Data.SQLite">
-      <HintPath>libs\System.Data.SQLite.dll</HintPath>
-    </Reference>
+    <PackageReference Include="System.Data.SQLite" Version="x.x.x" />
   </ItemGroup>
 
 
