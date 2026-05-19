@@ -31,7 +31,7 @@ databaseService.SaveIssues(issues);
   //  databaseService.SaveIssues(issue);
 //}
 
-Console.WriteLine();
+
 Console.WriteLine($"Total Issues Found: {issues.Count}");
 
 if (issues.Count > 0)
