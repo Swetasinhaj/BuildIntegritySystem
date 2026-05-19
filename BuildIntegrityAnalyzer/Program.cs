@@ -9,7 +9,7 @@ Console.Write("Enter project (.csproj) path: ");
 string projectPath =@"BuildIntegrityAnalyzer/BuildIntegrityAnalyzer.csproj";
 
 //string? projectPath = Console.ReadLine();
-//string projectPath = @"E:\TestGitProject\TestGitProject\TestGitProject.csproj";
+//string projectPath = @"E:\TestGitProject\DummyWebProject\DummyProject.csproj"";
 
 if (string.IsNullOrWhiteSpace(projectPath))
 {
