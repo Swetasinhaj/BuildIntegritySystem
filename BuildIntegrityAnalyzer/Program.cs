@@ -1,3 +1,4 @@
+
 ﻿using BuildIntegrityAnalyzer.AnalyzerCore;
 using BuildIntegrityAnalyzer.Models;
 using BuildIntegrityAnalyzer.Services;
@@ -9,7 +10,7 @@ Console.Write("Enter project (.csproj) path: ");
 //string projectPath =@"BuildIntegrityAnalyzer/BuildIntegrityAnalyzer.csproj";
 
 //string? projectPath = Console.ReadLine();
-string projectPath = @"TestProjects\DummyWebProject\DummyProject.csproj";
+string projectPath = @"E:\IntelligentBuildIntegritySystem\DummyProject\DummyProject\DummyProject.csproj";
 
 if (string.IsNullOrWhiteSpace(projectPath))
 {
@@ -36,16 +37,16 @@ Console.WriteLine($"Total Issues Found: {issues.Count}");
 if (issues.Count > 0)
 {
     Console.WriteLine("Integrity issues detected.");
-     Console.WriteLine($"\nTotal Issues Found: {issues.Count}");
+    Console.WriteLine($"\nTotal Issues Found: {issues.Count}");
 
- foreach (var issue in issues)
- {
-     Console.WriteLine("-----------------------------------");
-     Console.WriteLine($"Severity   : {issue.Severity}");
-     Console.WriteLine($"Issue Type : {issue.IssueType}");
-     Console.WriteLine($"File Name  : {issue.FileName}");
-     Console.WriteLine($"Description: {issue.Message}");
- }
+    foreach (var issue in issues)
+    {
+        Console.WriteLine("-----------------------------------");
+        Console.WriteLine($"Severity   : {issue.Severity}");
+        Console.WriteLine($"Issue Type : {issue.IssueType}");
+        Console.WriteLine($"File Name  : {issue.FileName}");
+        Console.WriteLine($"Description: {issue.Message}");
+    }
     Environment.Exit(1);
 }
 else
