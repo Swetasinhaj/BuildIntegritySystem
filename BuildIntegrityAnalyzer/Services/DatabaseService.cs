@@ -7,8 +7,7 @@ namespace BuildIntegrityAnalyzer.Services
 {
     public class DatabaseService
     {
-        private readonly string connectionString =
-            "Data Source=IntegrityLogs.db";
+        private readonly string connectionString ="Data Source=IntegrityLogs.db";
 
         public DatabaseService()
         {
@@ -19,7 +18,6 @@ namespace BuildIntegrityAnalyzer.Services
         {
             using var connection =
                 new SqliteConnection(connectionString);
-
             connection.Open();
 
             string query =
@@ -42,9 +40,7 @@ namespace BuildIntegrityAnalyzer.Services
 
         public void SaveIssues(List<IntegrityIssue> issues)
         {
-            using var connection =
-                new SqliteConnection(connectionString);
-
+            using var connection =new SqliteConnection(connectionString);
             connection.Open();
 
             foreach (var issue in issues)
@@ -67,28 +63,17 @@ namespace BuildIntegrityAnalyzer.Services
                 );
                 ";
 
-                using var command =
-                    new SqliteCommand(query, connection);
+                //using var command =new SqliteCommand(query, connection);
 
-                command.Parameters.AddWithValue(
-                    "@IssueType",
-                    issue.IssueType
-                );
+                using var command = new SqliteCommand(query, connection);
+                    
+                command.Parameters.AddWithValue( "@IssueType",issue.IssueType);
 
-                command.Parameters.AddWithValue(
-                    "@FileName",
-                    issue.FileName
-                );
+                command.Parameters.AddWithValue("@FileName",issue.FileName );
 
-                command.Parameters.AddWithValue(
-                    "@Message",
-                    issue.Message
-                );
+                command.Parameters.AddWithValue("@Message", issue.Message);
 
-                command.Parameters.AddWithValue(
-                    "@Timestamp",
-                    DateTime.Now.ToString()
-                );
+                command.Parameters.AddWithValue("@Timestamp",DateTime.Now.ToString());
 
                 command.ExecuteNonQuery();
             }
@@ -104,12 +89,12 @@ namespace BuildIntegrityAnalyzer.Services
 
             connection.Open();
 
-            string query =
-            @"
-    SELECT IssueType, FileName, Message
-    FROM IntegrityLogs
-    ORDER BY Id DESC
-    ";
+            //string query =
+            // @"
+            ////SELECT IssueType, FileName, Message
+            //FROM IntegrityLogs
+            // ORDER BY Id DESC";
+            string query = @"Select IssueType,FileName,Message FROM IntegrityLogs ORDER BY ID Desc";
 
             using var command =
                 new SqliteCommand(query, connection);
@@ -122,7 +107,8 @@ namespace BuildIntegrityAnalyzer.Services
                 issues.Add(new IntegrityIssue(
                     reader.GetString(0),
                     reader.GetString(1),
-                    reader.GetString(2)
+                    reader.GetString(2),
+                    reader.GetString(3)
                 ));
             }
 
