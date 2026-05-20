@@ -25,9 +25,4 @@ jobs:
 
     - name: Run Integrity Analyzer
       run: dotnet run --project BuildIntegrityAnalyzer
-      - name: Show Summary
-  run: |
-    echo "## Build Integrity Report" >> $GITHUB_STEP_SUMMARY
-    echo "| Severity | Issue |" >> $GITHUB_STEP_SUMMARY
-    echo "|---|---|" >> $GITHUB_STEP_SUMMARY
-    cat integrity-report.txt >> $GITHUB_STEP_SUMMARY
+     
