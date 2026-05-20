@@ -2,7 +2,10 @@
 ﻿using BuildIntegrityAnalyzer.AnalyzerCore;
 using BuildIntegrityAnalyzer.Models;
 using BuildIntegrityAnalyzer.Services;
+using System.Composition;
+using System.Text;
 
+StringBuilder report = new StringBuilder();
 Console.WriteLine("=== Intelligent Build Integrity Analyzer ===");
 Console.WriteLine();
 
@@ -10,7 +13,7 @@ Console.Write("Enter project (.csproj) path: ");
 //string projectPath =@"BuildIntegrityAnalyzer/BuildIntegrityAnalyzer.csproj";
 
 //string? projectPath = Console.ReadLine();
-string projectPath = @"TestProjects\DummyWebProject\DummyProject.csproj";
+string projectPath = @"E:\IntelligentBuildIntegritySystem\DummyProject\DummyProject\DummyProject.csproj";
 
 if (string.IsNullOrWhiteSpace(projectPath))
 {
@@ -31,7 +34,7 @@ databaseService.SaveIssues(issues);
   //  databaseService.SaveIssues(issue);
 //}
 
-
+Console.WriteLine();
 Console.WriteLine($"Total Issues Found: {issues.Count}");
 
 if (issues.Count > 0)
@@ -46,11 +49,14 @@ if (issues.Count > 0)
         Console.WriteLine($"Issue Type : {issue.IssueType}");
         Console.WriteLine($"File Name  : {issue.FileName}");
         Console.WriteLine($"Description: {issue.Message}");
+        report.AppendLine($"- {issue.IssueType} : {issue.FileName}");
     }
-   
+    File.WriteAllText("integrity-report.txt", report.ToString());
+    Environment.Exit(1);
 }
 else
 {
     Console.WriteLine("Project integrity verified.");
+    report.AppendLine("No integrity issue found");
     Environment.Exit(0);
 }
