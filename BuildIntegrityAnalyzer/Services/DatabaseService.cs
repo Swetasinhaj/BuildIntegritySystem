@@ -7,7 +7,7 @@ namespace BuildIntegrityAnalyzer.Services
 {
     public class DatabaseService
     {
-        private readonly string connectionString =@"Data Source=../BuildIntegrityDashboard/IntegrityLogs.db;
+        private readonly string connectionString =@"Data Source=../BuildIntegrityDashboard/IntegrityLogs.db";
 
         public DatabaseService()
         {
